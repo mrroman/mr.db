@@ -1,6 +1,6 @@
-(defproject mr/db "0.1.0-SNAPSHOT"
+(defproject mrroman/mr.db "0.1.0-SNAPSHOT"
   :description "JDBC database component"
-  :url "http://github.com/mrroman/db"
+  :url "http://github.com/mrroman/mr.db"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
