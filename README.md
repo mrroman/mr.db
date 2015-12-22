@@ -1,14 +1,19 @@
-# db
+# mrroman/mr.db
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure Stuart Sierra's component for access database. It uses a connection
+pool and supports simple migration engine.
 
 ## Usage
 
-FIXME
+Create new component
+
+```clojure
+(mr.db/new-database {:adapter "hsqldb"
+                     :url "jdbc:hsqldb:mem:testdb"}
+                    {1 #(jdbc/execute! ["CREATE TABLE data(value TEXT)"])})
+```
 
 ## License
-
-Copyright © 2015 FIXME
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
