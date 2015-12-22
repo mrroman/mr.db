@@ -1,4 +1,4 @@
-# mrroman/mr.db
+# mrroman/mr.db [![Build Status](https://travis-ci.org/mrroman/mr.db.svg?branch=master)](https://travis-ci.org/mrroman/mr.db)
 
 A Clojure Stuart Sierra's component for access database. It uses a connection
 pool and supports simple migration engine.
