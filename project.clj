@@ -7,6 +7,8 @@
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [com.stuartsierra/component "0.3.1"]
                  [org.clojure/java.jdbc "0.4.2"]
-                 [clojure.jdbc/clojure.jdbc-c3p0 "0.3.2"]]
+                 [hikari-cp "1.5.0"]
+                 [prismatic/schema "1.0.4"]]
 
-  :profiles {:dev {:dependencies [[org.hsqldb/hsqldb "2.3.3"]]}})
+  :profiles {:dev {:dependencies [[org.hsqldb/hsqldb "2.3.3"]]
+                   :plugins [[com.jakemccrary/lein-test-refresh "0.12.0"]]}})

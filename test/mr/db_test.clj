@@ -2,15 +2,18 @@
   (:require [clojure.java.jdbc :as jdbc]
             [clojure.test :refer :all]
             [com.stuartsierra.component :as component]
-            [mr.db :refer :all]))
+            [mr.db :refer :all]
+            [schema.test :as schema.test]))
+
+(use-fixtures :once schema.test/validate-schemas)
 
 ;; test data
 
 (def test-db
   (let [n (atom 0)]
     (fn []
-      {:subprotocol "hsqldb"
-       :subname (str "mem:testdb" (swap! n inc))})))
+      {:adapter "hsqldb"
+       :url (str "jdbc:hsqldb:mem:testdb" (swap! n inc))})))
 
 (def ^{:private true} migr1 {1 #(jdbc/execute! %
                                                ["CREATE TABLE vals (value integer)"])})

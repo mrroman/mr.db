@@ -1,9 +1,16 @@
 (ns mr.db
   (:require [com.stuartsierra.component :as component]
-            [jdbc.pool.c3p0 :as pool]
-            [clojure.java.jdbc :as jdbc]))
+            [hikari-cp.core :as pool]
+            [clojure.java.jdbc :as jdbc]
+            [schema.core :as s]))
 
 ;; migration
+
+(defn- positive [n]
+  (> n 0))
+
+(def Migrations {(s/constrained s/Int positive)
+                 (s/=> s/Any s/Any)})
 
 (defn- has-table [db table-name]
   (= (jdbc/query db
@@ -71,13 +78,20 @@
   component/Lifecycle
 
   (start [this]
-    (let [spec (pool/make-datasource-spec db-spec)]
+    (let [spec {:datasource (pool/make-datasource db-spec)}]
       (migrate spec migrations)
       (assoc this :spec spec)))
   (stop [this]
     (when (:spec this)
-      (.close (:spec this))
+      (pool/close-datasource (-> this :spec :datasource))
       (assoc this :spec nil))))
 
-(defn new-database [db-spec migrations]
+(s/defn new-database [db-spec :- s/Any
+                      migrations :- Migrations]
+  "Create database component instance. It holds connection pool connected
+to database specified with db-spec. It is a map specified with
+hikari.core/ConfigurationOptions schema.
+
+You can specify migrations. It is defined with map with integer keys
+starting from 1. The value is a function which argument is a connection."
   (->Database db-spec migrations))
