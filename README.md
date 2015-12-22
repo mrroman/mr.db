@@ -5,6 +5,10 @@ pool and supports simple migration engine.
 
 ## Usage
 
+Add to your dependencies (project.clj or build.boot):
+
+[![Clojars Project](http://clojars.org/mrroman/mr.db/latest-version.svg)]
+
 Create component:
 
 ```clojure
