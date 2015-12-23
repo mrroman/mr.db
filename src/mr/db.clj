@@ -6,11 +6,11 @@
 
 ;; migration
 
-(defn- positive [n]
+(defn- positive? [n]
   (> n 0))
 
-(def Migrations {(s/constrained s/Int positive)
-                 (s/=> s/Any s/Any)})
+(s/defschema Migrations {(s/constrained s/Int positive?)
+                         (s/=> s/Any s/Any)})
 
 (defn- has-table [db table-name]
   (= (jdbc/query db
